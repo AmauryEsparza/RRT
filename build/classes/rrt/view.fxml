@@ -9,5 +9,11 @@
               prefHeight="400.0" prefWidth="400.0"/>
         <Button mnemonicParsing="false" onAction="#onStartButton" text="Start" AnchorPane.bottomAnchor="10.0"
                 AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="415.0"/>
+        
     </children>
+    <children>
+        <javafx.scene.control.TextField  AnchorPane.bottomAnchor="50.0"
+                AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="415.0"/>
+    </children>
+    
 </AnchorPane>

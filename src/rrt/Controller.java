@@ -21,7 +21,8 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        tree = new Tree(0, 0);
+        System.out.println("Inicio");
+        tree = new Tree(300, 0);
         background = new Image("rrt/background.png");
         pane.getChildren().add(new ImageView(background));
     }
