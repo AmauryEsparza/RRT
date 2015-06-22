@@ -8,6 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Circle;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -16,15 +17,22 @@ public class Controller implements Initializable {
 
     Tree tree;
     Image background;
+    Node initialNode;
+    Node finalNode;
+       
     @FXML
     private Pane pane;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("Inicio");
-        tree = new Tree(300, 0);
-        background = new Image("rrt/background.png");
+        initialNode = new Node(0, 0);
+        finalNode = new Node(350, 50);
+        tree = new Tree(initialNode.getX(), initialNode.getY());
+        background = new Image("rrt/background3.png");
         pane.getChildren().add(new ImageView(background));
+        drawInitialNode(initialNode);
+        drawFinalNode(finalNode);
     }
 
     @FXML
@@ -44,21 +52,46 @@ public class Controller implements Initializable {
                 }
                 if (goalReached(randomNode)) {
                     found = true;
+                    printRoute();
                 }
             }
-
         }
     }
 
     private boolean goalReached(Node node) {
-        return background.getPixelReader().getColor(node.getX(), node.getY()).equals(Color.GREEN);
+        System.out.println("X: " + node.getX() + " Y: " + node.getY());
+        if(node.getX() >= (finalNode.getX() - 10) && node.getX() <= (finalNode.getX() + 10) ){
+            if(node.getY() >= (finalNode.getY() - 10) && node.getY() <= (finalNode.getY() + 10)){
+                Circle circle = new Circle(node.getX(), node.getY(), 10.0, Color.RED);
+                pane.getChildren().add(circle);
+                pane.requestLayout();
+                return true;
+            }
+        }
+        return false;
     }
 
     private void drawLineSegment(Node nearestNode, Node intermediateNode) {
         Line line = new Line(nearestNode.getX(), nearestNode.getY(), intermediateNode.getX(), intermediateNode.getY());
         pane.getChildren().add(line);
+        pane.requestLayout();
+    }
+    
+    private void drawInitialNode(Node node){
+        Circle circle = new Circle(node.getX(), node.getY(), 10.0, Color.BLUE);
+        pane.getChildren().add(circle);
+        pane.requestLayout();
+    }
+    
+    private void drawFinalNode(Node node){
+        Circle circle = new Circle(node.getX(), node.getY(), 10.0, Color.GREEN);
+        pane.getChildren().add(circle);
+        pane.requestLayout();
     }
 
+    private void printRoute(){
+        ArrayList<Node> treeList = tree.getArrrayList();
+    }
     private Node moveTowardRandNode(Node nearestNode, Node randomNode, int edgeLength) {
         int x1 = nearestNode.getX();
         int y1 = nearestNode.getY();

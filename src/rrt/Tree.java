@@ -7,6 +7,7 @@ import static java.lang.Math.sqrt;
 
 /**
  * Created by hp on 2/14/2015.
+ * Personalized by Amaury Esparza
  */
 public class Tree {
     Node root;
@@ -48,5 +49,9 @@ public class Tree {
 
     private double distance(int x1, int y1, int x2, int y2) {
         return sqrt(pow(x1 - x2, 2) + pow(y1 - y2, 2));
+    }
+    
+    public ArrayList<Node> getArrayList(){
+        return nodeArrayList;
     }
 }
