@@ -29,7 +29,7 @@ public class Controller implements Initializable {
         initialNode = new Node(0, 0);
         finalNode = new Node(350, 50);
         tree = new Tree(initialNode.getX(), initialNode.getY());
-        background = new Image("rrt/background3.png");
+        background = new Image("rrt/background2.png");
         pane.getChildren().add(new ImageView(background));
         drawInitialNode(initialNode);
         drawFinalNode(finalNode);
@@ -90,8 +90,19 @@ public class Controller implements Initializable {
     }
 
     private void printRoute(){
-        ArrayList<Node> treeList = tree.getArrrayList();
+        Node node = new Node(0,0);
+        for (Node child : tree.getArrayList()){
+            if(isValidNode(node, child)){
+                System.out.println("Ruta X: " + node.getX() + " Y: " + node.getY());
+                Line line = new Line(node.getX(), node.getY(), child.getX(), child.getY());
+                node = child;
+                line.setStroke(Color.BLUE);
+                pane.getChildren().add(line);
+                pane.requestLayout();
+            }
+        }
     }
+    
     private Node moveTowardRandNode(Node nearestNode, Node randomNode, int edgeLength) {
         int x1 = nearestNode.getX();
         int y1 = nearestNode.getY();
@@ -312,5 +323,4 @@ public class Controller implements Initializable {
         int y2 = n2.getY();
         return Math.sqrt(Math.pow((x1 - x2), 2) + Math.pow((y1 - y2), 2));
     }
-
 }
